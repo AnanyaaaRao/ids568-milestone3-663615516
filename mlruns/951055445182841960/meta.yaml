@@ -1,0 +1,7 @@
+artifact_location: file:C:/Users/raoan/ids568-milestone3/mlruns/951055445182841960
+creation_time: 1772590164772
+experiment_id: '951055445182841960'
+last_update_time: 1772590164772
+lifecycle_stage: active
+name: wine_quality_classification
+workspace: default

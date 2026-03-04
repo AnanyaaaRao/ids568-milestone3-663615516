@@ -1,0 +1,28 @@
+{
+  "data_version": "20260304",
+  "n_train": 142,
+  "n_test": 36,
+  "n_features": 15,
+  "feature_names": [
+    "alcohol",
+    "malic_acid",
+    "ash",
+    "alcalinity_of_ash",
+    "magnesium",
+    "total_phenols",
+    "flavanoids",
+    "nonflavanoid_phenols",
+    "proanthocyanins",
+    "color_intensity",
+    "hue",
+    "od280/od315_of_diluted_wines",
+    "proline",
+    "log_proline",
+    "log_od280_od315_of_diluted_wines"
+  ],
+  "train_path": "data\\20260304\\train.parquet",
+  "test_path": "data\\20260304\\test.parquet",
+  "train_hash": "c8794d414c890c0347e51c078d6c005cf5163b93574786d69d58135e29bd19f5",
+  "test_hash": "6d68eb1d2a11e282f6069a4df2897968315d9a68f09085d3abd8e012b969d2b2",
+  "created_at": "2026-03-04T02:09:24.718694"
+}

@@ -1,0 +1,117 @@
+[
+  {
+    "run_id": "628e598e70734cecb947370f868d898d",
+    "run_name": "baseline_100trees",
+    "experiment_id": "951055445182841960",
+    "metrics": {
+      "accuracy": 1.0,
+      "f1_macro": 1.0,
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "roc_auc_ovr": 1.0
+    },
+    "params": {
+      "n_estimators": 100,
+      "max_depth": "None",
+      "min_samples_split": 2,
+      "min_samples_leaf": 1,
+      "max_features": "sqrt",
+      "random_state": 42
+    },
+    "data_version": "20260304",
+    "model_hash": "e776fa26ed22125fa14d76f099053a010039413f606c893f5ed5381173dd9b4c",
+    "notes": "Baseline configuration with unlimited depth"
+  },
+  {
+    "run_id": "41fe98a075434545ab50c33d34207480",
+    "run_name": "shallow_50trees",
+    "experiment_id": "951055445182841960",
+    "metrics": {
+      "accuracy": 1.0,
+      "f1_macro": 1.0,
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "roc_auc_ovr": 1.0
+    },
+    "params": {
+      "n_estimators": 50,
+      "max_depth": 5,
+      "min_samples_split": 2,
+      "min_samples_leaf": 1,
+      "max_features": "sqrt",
+      "random_state": 42
+    },
+    "data_version": "20260304",
+    "model_hash": "e961a545303e37acb9bdb2a0176436b510740f8cb7d6420f1dfa37049322a044",
+    "notes": "Shallow trees \u2014 fast, less prone to overfitting"
+  },
+  {
+    "run_id": "13a35f88e60446778d6c46129c54365b",
+    "run_name": "deep_200trees",
+    "experiment_id": "951055445182841960",
+    "metrics": {
+      "accuracy": 1.0,
+      "f1_macro": 1.0,
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "roc_auc_ovr": 1.0
+    },
+    "params": {
+      "n_estimators": 200,
+      "max_depth": 15,
+      "min_samples_split": 2,
+      "min_samples_leaf": 1,
+      "max_features": "sqrt",
+      "random_state": 42
+    },
+    "data_version": "20260304",
+    "model_hash": "71138fda25db4e171a599e078a46d4ffa002c96a911513b461e38dacd1ba6f1f",
+    "notes": "More trees with moderate depth \u2014 production candidate"
+  },
+  {
+    "run_id": "612173fc0987455cb56f607b5d2bde45",
+    "run_name": "regularized_150trees",
+    "experiment_id": "951055445182841960",
+    "metrics": {
+      "accuracy": 1.0,
+      "f1_macro": 1.0,
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "roc_auc_ovr": 1.0
+    },
+    "params": {
+      "n_estimators": 150,
+      "max_depth": 10,
+      "min_samples_split": 5,
+      "min_samples_leaf": 2,
+      "max_features": "log2",
+      "random_state": 42
+    },
+    "data_version": "20260304",
+    "model_hash": "ffffee633c87b2a8bc9844a58973b2d06fb7151c50fde7200d95a99763c56fdd",
+    "notes": "Regularized via min_samples constraints and log2 features"
+  },
+  {
+    "run_id": "83917f0641724be29632c7b01db209bb",
+    "run_name": "large_300trees",
+    "experiment_id": "951055445182841960",
+    "metrics": {
+      "accuracy": 1.0,
+      "f1_macro": 1.0,
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "roc_auc_ovr": 1.0
+    },
+    "params": {
+      "n_estimators": 300,
+      "max_depth": 20,
+      "min_samples_split": 2,
+      "min_samples_leaf": 1,
+      "max_features": "sqrt",
+      "random_state": 42
+    },
+    "data_version": "20260304",
+    "model_hash": "e39a8a0f7ab10d1f72f221860fc6edc05794545674bb24b02b309dc5ab4f1e34",
+    "notes": "Maximum capacity model \u2014 benchmark ceiling"
+  }
+]

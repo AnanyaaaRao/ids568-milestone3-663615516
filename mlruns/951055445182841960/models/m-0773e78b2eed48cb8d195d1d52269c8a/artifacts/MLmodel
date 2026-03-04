@@ -1,0 +1,23 @@
+artifact_path: file:C:/Users/raoan/ids568-milestone3/mlruns/951055445182841960/models/m-0773e78b2eed48cb8d195d1d52269c8a/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.8
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.10.0
+model_id: m-0773e78b2eed48cb8d195d1d52269c8a
+model_size_bytes: 264764
+model_uuid: m-0773e78b2eed48cb8d195d1d52269c8a
+prompts: null
+run_id: 612173fc0987455cb56f607b5d2bde45
+utc_time_created: '2026-03-04 02:09:59.415023'

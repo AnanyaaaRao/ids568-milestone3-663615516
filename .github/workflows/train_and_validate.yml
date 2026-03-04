@@ -1,0 +1,144 @@
+name: Train and Validate Model
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:   # allow manual runs from GitHub UI
+
+env:
+  MLFLOW_TRACKING_URI: mlruns
+  DATA_VERSION: ${{ github.run_number }}   # unique per CI run → idempotent
+  MODEL_NAME: wine_quality_rf
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  train-and-validate:
+    name: Train, Validate & Register Model
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      # ------------------------------------------------------------------
+      # 1. Checkout source
+      # ------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ------------------------------------------------------------------
+      # 2. Set up Python
+      # ------------------------------------------------------------------
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      # ------------------------------------------------------------------
+      # 3. Install dependencies (pinned versions for reproducibility)
+      # ------------------------------------------------------------------
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # ------------------------------------------------------------------
+      # 4. Preprocess data
+      # ------------------------------------------------------------------
+      - name: Preprocess data
+        run: |
+          python preprocess.py
+        env:
+          DATA_VERSION: ${{ env.DATA_VERSION }}
+          DATA_DIR: data
+
+      # ------------------------------------------------------------------
+      # 5. Train model and save run metadata
+      # ------------------------------------------------------------------
+      - name: Train model
+        run: |
+          python train.py \
+            --n-estimators 150 \
+            --max-depth 10 \
+            --run-name "ci_run_${{ github.run_number }}" \
+            > train_output.json
+          cat train_output.json
+        env:
+          DATA_VERSION: ${{ env.DATA_VERSION }}
+          DATA_DIR: data
+          MLFLOW_TRACKING_URI: ${{ env.MLFLOW_TRACKING_URI }}
+          MLFLOW_EXPERIMENT: wine_quality_classification
+
+      # ------------------------------------------------------------------
+      # 6. Extract run_id from train output
+      # ------------------------------------------------------------------
+      - name: Extract MLflow run_id
+        id: extract_run_id
+        run: |
+          RUN_ID=$(python -c "import json; print(json.load(open('train_output.json'))['run_id'])")
+          echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
+          echo "MLflow run_id: $RUN_ID"
+
+      # ------------------------------------------------------------------
+      # 7. Export metrics to file for the validation script
+      # ------------------------------------------------------------------
+      - name: Export metrics
+        run: |
+          python -c "
+          import json
+          data = json.load(open('train_output.json'))
+          json.dump(data['metrics'], open('metrics.json', 'w'), indent=2)
+          print('Metrics:', json.dumps(data['metrics'], indent=2))
+          "
+
+      # ------------------------------------------------------------------
+      # 8. Quality gate — fails the pipeline if metrics are below threshold
+      # ------------------------------------------------------------------
+      - name: Run model validation (quality gate)
+        run: |
+          python model_validation.py --metrics-file metrics.json
+        env:
+          MIN_ACCURACY: "0.85"
+          MIN_F1_MACRO: "0.84"
+          MIN_PRECISION_MACRO: "0.84"
+          MIN_RECALL_MACRO: "0.84"
+          MIN_ROC_AUC: "0.97"
+
+      # ------------------------------------------------------------------
+      # 9. Register model to MLflow registry (only on main branch)
+      # ------------------------------------------------------------------
+      - name: Register model to MLflow Registry
+        if: github.ref == 'refs/heads/main'
+        run: |
+          python register_model.py \
+            --run-id ${{ steps.extract_run_id.outputs.run_id }} \
+            --model-name ${{ env.MODEL_NAME }}
+        env:
+          MLFLOW_TRACKING_URI: ${{ env.MLFLOW_TRACKING_URI }}
+          MODEL_NAME: ${{ env.MODEL_NAME }}
+
+      # ------------------------------------------------------------------
+      # 10. Upload MLflow artifacts for inspection
+      # ------------------------------------------------------------------
+      - name: Upload MLflow tracking artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mlflow-runs-${{ github.run_number }}
+          path: |
+            mlruns/
+            metrics.json
+            train_output.json
+          retention-days: 30
+
+      # ------------------------------------------------------------------
+      # 11. Upload trained model artifact
+      # ------------------------------------------------------------------
+      - name: Upload model artifact
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: trained-model-${{ github.run_number }}
+          path: models/
+          retention-days: 14

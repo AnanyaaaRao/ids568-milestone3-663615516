@@ -1,0 +1,17 @@
+creation_timestamp: 1772590272893
+current_stage: Production
+deployment_job_state: null
+description: 'RandomForest trained on Wine dataset. accuracy=1.0000, f1_macro=1.0000.
+  Source run: 628e598e70734cecb947370f868d898d'
+last_updated_timestamp: 1772590273480
+model_id: m-f4c9792cd5e1403d81f29d6e28cbb698
+name: wine_quality_rf
+run_id: 628e598e70734cecb947370f868d898d
+run_link: null
+source: models:/m-f4c9792cd5e1403d81f29d6e28cbb698
+status: READY
+status_message: null
+storage_location: file:C:/Users/raoan/ids568-milestone3/mlruns/951055445182841960/models/m-f4c9792cd5e1403d81f29d6e28cbb698/artifacts
+user_id: null
+version: 1
+workspace: default

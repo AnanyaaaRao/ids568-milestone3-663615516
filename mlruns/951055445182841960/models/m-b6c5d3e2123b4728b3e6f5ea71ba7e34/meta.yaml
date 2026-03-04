@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/raoan/ids568-milestone3/mlruns/951055445182841960/models/m-b6c5d3e2123b4728b3e6f5ea71ba7e34/artifacts
+creation_timestamp: 1772590208974
+experiment_id: '951055445182841960'
+last_updated_timestamp: 1772590216933
+model_id: m-b6c5d3e2123b4728b3e6f5ea71ba7e34
+model_type: null
+name: model
+source_run_id: 83917f0641724be29632c7b01db209bb
+status: 2
+status_message: null

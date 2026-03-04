@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/raoan/ids568-milestone3/mlruns/951055445182841960/612173fc0987455cb56f607b5d2bde45/artifacts
+end_time: 1772590207505
+entry_point_name: ''
+experiment_id: '951055445182841960'
+lifecycle_stage: active
+run_id: 612173fc0987455cb56f607b5d2bde45
+run_name: regularized_150trees
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1772590198366
+status: 3
+tags: []
+user_id: raoan
