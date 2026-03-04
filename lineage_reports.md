@@ -20,13 +20,13 @@ trade-offs.
 
 ## 2. Experiment Runs Comparison
 
-| # | Run Name | n_estimators | max_depth | Accuracy | F1 Macro | ROC-AUC | Notes |
-|---|----------|-------------|-----------|----------|----------|---------|-------|
-| 1 | baseline_100trees | 100 | None | ~0.972 | ~0.972 | ~0.999 | Baseline — unlimited depth |
-| 2 | shallow_50trees | 50 | 5 | ~0.917 | ~0.915 | ~0.991 | Shallow / fast — underfits slightly |
-| 3 | **deep_200trees** | **200** | **15** | **~0.972** | **~0.972** | **~0.999** | ✅ **Production candidate** |
-| 4 | regularized_150trees | 150 | 10 | ~0.972 | ~0.971 | ~0.999 | Regularized — robust generalization |
-| 5 | large_300trees | 300 | 20 | ~0.972 | ~0.972 | ~0.999 | Ceiling benchmark — no gain over run 3 |
+| # | Run Name | n_estimators | max_depth | Accuracy | F1 Macro | ROC-AUC | Run ID |
+|---|----------|-------------|-----------|----------|----------|---------|--------|
+| 1 | baseline_100trees | 100 | None | 1.0000 | 1.0000 | 1.0000 | 628e598e70734cecb947370f868d898d |
+| 2 | shallow_50trees | 50 | 5 | 1.0000 | 1.0000 | 1.0000 | 41fe98a075434545ab50c33d34207480 |
+| 3 | **deep_200trees** | **200** | **15** | **1.0000** | **1.0000** | **1.0000** | 13a35f88e60446778d6c46129c54365b ✅ Production |
+| 4 | regularized_150trees | 150 | 10 | 1.0000 | 1.0000 | 1.0000 | 612173fc0987455cb56f607b5d2bde45 |
+| 5 | large_300trees | 300 | 20 | 1.0000 | 1.0000 | 1.0000 | 83917f0641724be29632c7b01db209bb |
 
 > **Exact metrics** are captured in MLflow and can be viewed via `mlflow ui`.
 
